@@ -1,0 +1,10 @@
+.item {
+  text-transform: capitalize;
+  border: 1px solid #F4D160;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.item p {
+  line-height: 1.4;
+}
