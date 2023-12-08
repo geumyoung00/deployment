@@ -4,7 +4,7 @@ import AlbumList from '../components/AlbumList';
 
 function ProductPage() {
   const albums = useLoaderData();
-  console.log('albums__', albums);
+
   return <AlbumList albums={albums} />;
 }
 

@@ -1,11 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // import ProductPage, { loader as albumsLoader } from './pages/Product';
-import ProductPage from './pages/Product';
 import HomePage from './pages/Home';
-import AlbumPage, { loader as albumLoader } from './pages/Album';
+// import AlbumPage, { loader as albumLoader } from './pages/Album';
 import RootLayout from './pages/Root';
 import { lazy, Suspense } from 'react';
+
+const ProductPage = lazy(() => import('./pages/Product'));
+const AlbumPage = lazy(() => import('./pages/Album'));
 
 const router = createBrowserRouter([
   {
@@ -22,19 +24,26 @@ const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense>
-                <ProductPage fallback={<p>Loading...</p>} />
+              <Suspense fallback={<p>Product Page Loading...</p>}>
+                <ProductPage />
+              </Suspense>
+            ),
+            loader: () =>
+              import('./pages/Product').then((module) => module.loader()),
+          },
+          // { index: true, element: <ProductPage />, loader: albumsLoader },
+          {
+            path: ':id',
+            element: (
+              <Suspense fallback={<p>Album Page Loading...</p>}>
+                <AlbumPage />
               </Suspense>
             ),
             loader: () => {
-              lazy(() =>
-                import('./pages/Product').then((modlue) => modlue.loader())
-              );
-              return null;
+              import('./pages/Album').then((module) => module.loader());
             },
           },
-          // { index: true, element: <ProductPage />, loader: albumsLoader },
-          { path: ':id', element: <AlbumPage />, loader: albumLoader },
+          // { path: ':id', element: <AlbumPage />, loader: albumLoader },
         ],
       },
     ],
