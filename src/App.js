@@ -39,9 +39,10 @@ const router = createBrowserRouter([
                 <AlbumPage />
               </Suspense>
             ),
-            loader: () => {
-              import('./pages/Album').then((module) => module.loader());
-            },
+            loader: ({ params }) =>
+              import('./pages/Album').then((module) =>
+                module.loader({ params })
+              ),
           },
           // { path: ':id', element: <AlbumPage />, loader: albumLoader },
         ],

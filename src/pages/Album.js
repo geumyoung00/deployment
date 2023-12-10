@@ -4,8 +4,6 @@ import AlbumItem from '../components/AlbumItem';
 
 function AlbumPage() {
   const album = useLoaderData();
-  console.log('album__', album);
-
   return <AlbumItem album={album} />;
 }
 
